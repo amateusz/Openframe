@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -exo pipefail
+
 # Be VERY Careful. This script may be executed with admin privileges.
 
 echo "Openframe -- install.sh"
@@ -16,7 +18,8 @@ cp .ofrc ~/.openframe/.ofrc
 cp ./scripts/autoboot.sh ~/.openframe/autoboot.sh
 
 echo "Update default extensions"
-npm update -g openframe-image openframe-video openframe-glslviewer openframe-website
+# npm update -g openframe-image openframe-video openframe-glslviewer openframe-website 
+npm update -g swagger-client
 
 if [ $os == "Linux" ]; then
 
@@ -27,14 +30,14 @@ if [ $os == "Linux" ]; then
         echo "armv7l"
 
         # disable overscan
-        # sudo sed -i 's/.*overscan.*/#&/' /boot/config.txt
+        #  sed -i 's/.*overscan.*/#&/' /boot/config.txt
 
         # rotate the display
-        # sudo echo "display_rotate=1" >> /boot/config.txt
+        #  echo "display_rotate=1" >> /boot/config.txt
 
         # disable screen blanking
-        sudo sed -i -r 's/BLANK_TIME=[0-9]+/BLANK_TIME=0/' /etc/kbd/config
-        sudo sed -i -r 's/POWERDOWN_TIME=[0-9]+/POWERDOWN_TIME=0/' /etc/kbd/config
+        sed -i -r 's/BLANK_TIME=[0-9]+/BLANK_TIME=0/' /etc/kbd/config
+        sed -i -r 's/POWERDOWN_TIME=[0-9]+/POWERDOWN_TIME=0/' /etc/kbd/config
 
         echo "Openframe updated, please run:"
         echo ""
